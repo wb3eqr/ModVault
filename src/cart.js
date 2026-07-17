@@ -14,7 +14,7 @@ function load() {
 }
 
 function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch {}
   dispatch();
 }
 

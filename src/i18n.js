@@ -100,9 +100,16 @@ export const ru = {
 
 let current = "en";
 
+function lsSet(key, val) {
+  try { localStorage.setItem(key, val); } catch {}
+}
+function lsGet(key, def) {
+  try { return localStorage.getItem(key) ?? def; } catch { return def; }
+}
+
 export function setLang(lang) {
   current = lang;
-  localStorage.setItem("mv:lang", lang);
+  lsSet("mv:lang", lang);
 }
 
 export function getLang() {
@@ -120,5 +127,5 @@ export function t(path) {
 }
 
 export function initLang() {
-  current = localStorage.getItem("mv:lang") || "en";
+  current = lsGet("mv:lang", "en");
 }

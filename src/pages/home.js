@@ -2,7 +2,7 @@ import { t } from "../i18n.js";
 import { searchProjects, getGameVersions, getLoaders } from "../api.js";
 import { addItem, getCount } from "../cart.js";
 
-export async function renderHome(container, navigate) {
+export function renderHome(container, navigate) {
   container.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="text-center mb-8">

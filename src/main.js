@@ -23,21 +23,28 @@ function navigate(path) {
 let currentPath = "";
 
 function render() {
-  const path = getPath();
-  if (path === currentPath) return;
-  currentPath = path;
+  try {
+    const path = getPath();
+    if (path === currentPath) return;
+    currentPath = path;
 
-  const app = document.getElementById("app");
+    const app = document.getElementById("app");
+    if (!app) { console.error("#app not found"); return; }
 
-  if (path.startsWith("/project/")) {
-    const id = path.slice(9);
-    renderProject(app, id, navigate);
-    return;
+    if (path.startsWith("/project/")) {
+      const id = path.slice(9);
+      renderProject(app, id, navigate);
+      return;
+    }
+
+    const renderFn = routes[path] || routes["/"];
+    renderFn(app, navigate);
+    updateCartBadge();
+  } catch (e) {
+    console.error("render error:", e);
+    const app = document.getElementById("app");
+    if (app) app.innerHTML = `<div class="p-4 text-red-400 text-sm">Render Error: ${e.message}</div>`;
   }
-
-  const renderFn = routes[path] || routes["/"];
-  renderFn(app, navigate);
-  updateCartBadge();
 }
 
 function updateCartBadge() {
@@ -51,6 +58,12 @@ function updateCartBadge() {
     badge.classList.add("hidden");
   }
 }
+
+window.addEventListener("error", (e) => {
+  const app = document.getElementById("app");
+  if (app) app.innerHTML = `<div class="p-4 text-red-400 text-sm">JS Error: ${e.message}</div>`;
+  console.error(e);
+});
 
 function init() {
   initLang();
