@@ -30,7 +30,7 @@ export async function getGameVersions() {
 export async function getLoaders() {
   if (cachedLoaders) return cachedLoaders;
   const data = await fetchJSON(`${BASE}/tag/loader`);
-  cachedLoaders = data.map((l) => l.icon ?? l.name);
+  cachedLoaders = data.map((l) => l.name);
   return cachedLoaders;
 }
 
