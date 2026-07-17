@@ -1,5 +1,5 @@
 import "./style.css";
-import { initLang, setLang, t } from "./i18n.js";
+import { initLang, getLang, setLang, t } from "./i18n.js";
 import { getItems, getCount } from "./cart.js";
 import { renderHome } from "./pages/home.js";
 import { renderProject } from "./pages/project.js";
